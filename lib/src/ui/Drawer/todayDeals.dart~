@@ -1,0 +1,132 @@
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../cart.dart';
+import '../mic.dart';
+
+class TodayDeals extends StatefulWidget {
+  @override
+  _TodayDealsState createState() => _TodayDealsState();
+}
+
+class _TodayDealsState extends State<TodayDeals> {
+  static mic(BuildContext context) {
+    showModalBottomSheet(
+
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => Wrap(children: [Mic()]),
+    );
+  }
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        backgroundColor: Color(0xFFADBD2E),
+        //drawer: Dbar(),
+        appBar: AppBar(
+          backgroundColor: Color(0xFFADBD2E),
+          title:  Image.asset(
+            "./assets/images/days.png",
+            scale: 3.5,
+          ),
+          actions: [
+            GestureDetector(
+              onTap: (){
+                mic(context);
+              },
+              child: Container(
+                padding: EdgeInsets.all(10),
+                alignment: Alignment.center,
+                child: Icon(Icons.mic,size: 24,color: Colors.black,),
+              ),
+            ),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Cart()),
+                );
+              },
+              child: Container(
+                padding: EdgeInsets.all(10),
+                alignment: Alignment.center,
+                child: Icon(Icons.shopping_cart_outlined,size: 24,color: Colors.black,),
+              ),
+            )
+          ],
+          bottom: PreferredSize(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 50.0,
+                    width: double.infinity,
+                    child: Center(
+                      child: ListTile(
+                        title: Container(
+                          height: 40,
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.only(left: 15,),
+                          child: CupertinoTextField(
+                            keyboardType: TextInputType.text,
+                            placeholder: 'What are you looking for?',
+                            prefix: Padding(
+                              padding: const EdgeInsets.fromLTRB(9.0, 6.0, 9.0, 6.0),
+                              child: Icon(Icons.search),
+                            ),
+                          ),
+                        ),
+                        trailing:  Container(
+                          child: IconButton(
+                            icon: Icon(Icons.camera_alt_outlined,color: Colors.white,),
+                            onPressed: (){},
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 30,
+                    child: TabBar(
+                      isScrollable: true,
+                      unselectedLabelColor: Colors.black.withOpacity(0.7),
+                      indicatorColor: Colors.blueAccent,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      labelColor: Colors.orangeAccent,
+                      tabs: [
+                        Tab(
+                          child: Text('FEATURED',style: TextStyle(
+                              fontWeight: FontWeight.w500
+                          ),),),
+                        Tab(
+                          child: Text('ALL DEALS',style: TextStyle(
+                              fontWeight: FontWeight.w500
+                          ),),),
+                        Tab(
+                          child: Text('UPCOMING',style: TextStyle(
+                              fontWeight: FontWeight.w500
+                          ),),),
+                        Tab(
+                          child: Text('WATCHLIST',style: TextStyle(
+                              fontWeight: FontWeight.w500
+                          ),),),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              preferredSize: Size.fromHeight(65.0)),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
